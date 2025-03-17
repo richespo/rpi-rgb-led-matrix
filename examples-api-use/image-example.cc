@@ -23,6 +23,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+
+
 #include <exception>
 #include <Magick++.h>
 #include <magick/image.h>
@@ -121,11 +123,15 @@ int main(int argc, char *argv[]) {
 
   // Initialize the RGB matrix with
   RGBMatrix::Options matrix_options;
+  matrix_options.rows=64;
+  matrix_options.cols=64;
+  matrix_options.hardware_mapping = "adafruit-hat-pwm";   // or e.g. "adafruit-hat"
   rgb_matrix::RuntimeOptions runtime_opt;
   if (!rgb_matrix::ParseOptionsFromFlags(&argc, &argv,
                                          &matrix_options, &runtime_opt)) {
     return usage(argv[0]);
   }
+
 
   if (argc != 2)
     return usage(argv[0]);
