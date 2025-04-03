@@ -6,11 +6,11 @@
 // (but note, that the led-matrix library this depends on is GPL v2)
 
 #include "led-matrix.h"
-
 #include <unistd.h>
 #include <math.h>
 #include <stdio.h>
 #include <signal.h>
+#include "/usr/local/include/opencv4/opencv2/opencv.hpp"
 
 using rgb_matrix::RGBMatrix;
 using rgb_matrix::Canvas;
@@ -56,6 +56,14 @@ int main(int argc, char *argv[]) {
   // It is always good to set up a signal handler to cleanly exit when we
   // receive a CTRL-C for instance. The DrawOnCanvas() routine is looking
   // for that.
+  cv::Mat img = cv::imread("us64.bmp");
+  if (img.empty()) return -1;
+  cv::namedWindow("Ex. 1", cv::WINDOW_AUTOSIZE);
+  cv::imshow("Ex. 1", img);
+  cv::waitKey(0);
+  cv::destroyWindow("Ex. 1");
+
+
   signal(SIGTERM, InterruptHandler);
   signal(SIGINT, InterruptHandler);
 
